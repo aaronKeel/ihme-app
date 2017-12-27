@@ -1,4 +1,5 @@
 # Creating a New Nodejs Application and Docker Container
+
 In the terminal, create a new directory and go to it.
 ```
 mkdir ihme-app && cd ihme-app
@@ -98,17 +99,18 @@ npm-debug.log
 Add these scripts to `package.json` file:
 ```
     "docker:build:dev": "docker build -t starter-app -f ./Docker/dev/Dockerfile .",
-    "docker:run": "docker run --rm --publish 11235:8080 --name starter-app -e ENVIRONMENT_NAME='dev' starter-app"
+    "docker:run": "docker run --rm --publish 8080:8080 --name starter-app -e ENVIRONMENT_NAME='dev' starter-app"
 
 ```
 
 You can use `npm run docker:build:dev` to build the image. Then to run the image use the script `npm run docker:run`.
 
-Now we can call the app using `curl -i localhost:11235`.
+Now we can call the app using `curl -i localhost:8080`.
 
 Resource: [nodejs.org](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/)
 
 # Nodejs Sever Using Typescript
+
 To get started with typescript we will
 ```
 npm install --save typescript
@@ -126,28 +128,30 @@ touch server/app.ts
 ```
 `app.ts` content:
 ```typescript
-import * as express from 'express'
+import * as express from 'express';
 
 class App {
-  public express
+  public express;
 
   constructor () {
-    this.express = express()
-    this.mountRoutes()
+    this.express = express();
+    this.mountRoutes();
   }
 
   private mountRoutes (): void {
-    const router = express.Router()
+    const router = express.Router();
+    
     router.get('/', (req, res) => {
       res.json({
-        message: 'Hello World!'
-      })
-    })
-    this.express.use('/', router)
+        message: 'Hello World!',
+      });
+    });
+    
+    this.express.use('/', router);
   }
 }
 
-export default new App().express
+export default new App().express;
 ```
 
 We are also creating an `index.ts` file, so the web server can be fired up:
@@ -156,17 +160,17 @@ touch server/index.ts
 ```
 `index.ts` content:
 ```typescript
-import app from './App'
+import app from './App';
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 
 app.listen(port, (err) => {
   if (err) {
-    return console.log(err)
+    return console.log(err);
   }
 
-  return console.log(`server is listening on ${port}`)
-})
+  return console.log(`server is listening on ${port}`);
+});
 ```
 
 We add a configuration file for typescript `tsconfig.json` to tell typescript what to do.
@@ -231,7 +235,7 @@ and `package.json`:
   "main": "index.js",
   "scripts": {
     "docker:build:dev": "docker build -t starter-app -f ./Docker/dev/Dockerfile .",
-    "docker:run": "docker run --rm --publish 11235:8080 --name starter-app -e ENVIRONMENT_NAME='dev' starter-app",
+    "docker:run": "docker run --rm --publish 8080:8080 --name starter-app -e ENVIRONMENT_NAME='dev' starter-app",
     "tsc": "tsc"
   },
   "author": "Aaron Keel",
@@ -244,6 +248,111 @@ and `package.json`:
 }
 ```
 
-After building and running the docker container you can test the server using `curl -i localhost:11235`.
+Build and run:
+```
+npm run tsc
+npm run docker:build:dev
+npm run docker:run
+```
+
+After building and running the docker container you can test the server using `curl -i localhost:8080`.
 
 Resource: [Building a Node.js App with TypeScript Tutorial](https://blog.risingstack.com/building-a-node-js-app-with-typescript-tutorial/)
+
+We can remove `server.js`.
+
+# Serving Static Files in Express
+
+Create a `public` directory to hold all of our public facing code:
+```
+mkdir public
+```
+We will need to use Express middleware to serve static files. Edit `index.ts` in the sever directory:
+```javascript
+import * as express from 'express';
+import * as path from 'path';
+
+class App {
+  public express;
+
+  constructor () {
+    this.express = express();
+    this.mountRoutes();
+  }
+
+  private mountRoutes (): void {
+    const router = express.Router();
+
+    router.get('/', (req, res) => {
+      res.sendFile(path.join(__dirname, '/../public/index.html'));
+    });
+
+    router.get('/api', (req, res) => {
+      res.json({
+        message: 'Hello World!',
+      });
+    });
+
+    this.express.use('/', router);
+    this.express.use('/api', router);
+    this.express.use('/public', express.static(path.join(__dirname, '/../public')));
+  }
+}
+
+export default new App().express;
+
+
+```
+Create `index.html` and `style.css` files in public the directory:
+```
+touch public/index.html
+touch public/style.css
+```
+`index.html` content:
+```html
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IHME App</title>
+        <link rel="stylesheet" href="/public/style.css">
+    </head>
+    <body>
+        <main id="page">
+            IHME App
+        </main>
+    </body>
+</html>
+```
+`style.css` content:
+```css
+main {
+    font-family: Helvetica, sans-serif;
+}
+```
+Resources:
+-   [Serving static files in Express](http://expressjs.com/en/starter/static-files.html)
+-   [Use ExpressJS to Deliver HTML Files](https://scotch.io/tutorials/use-expressjs-to-deliver-html-files)
+
+# Development
+
+We can set a watch flag for our typescript compiler:
+```
+"tsc:w": "tsc --watch",
+
+```
+Install `nodemon` to watch for server file changes:
+```
+npm install --save-dev nodemon
+
+```
+
+Add a new script to run a local development server: 
+```
+"server:dev": "nodemon ./dist/index.js",
+```
+
+## Client Side
+
+### Webpack
+
