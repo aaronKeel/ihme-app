@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "docker:build:dev": "docker build -t starter-app -f ./Docker/dev/Dockerfile .",
-    "docker:run": "docker run --rm --publish 49160:8080 --name starter-app -v `pwd`:/var/www/html/starter-app -e ENVIRONMENT_NAME='dev' starter-app"
+    "docker:run": "docker run --rm --publish 11235:8080 --name starter-app -v `pwd`:/var/www/html/starter-app -e ENVIRONMENT_NAME='dev' starter-app",
+    "tsc": "tsc"
   },
   "author": "Aaron Keel",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "@types/node": "^8.5.2",
+    "express": "^4.16.2",
+    "typescript": "^2.6.2"
   }
 }
