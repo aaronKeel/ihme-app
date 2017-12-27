@@ -21,7 +21,17 @@ and then
 npm install --save express
 ```
 
-Now we create the `sever.js` file.
+We don't want to publish unnecessary files so create a `.gitignore` file and ignore the following files:
+```
+node_modules
+.DS_Store
+npm-debug.log
+dist
+bundle.js
+.idea
+```
+
+Now we create the `server.js` file.
 ```javascript
 'use strict';
 
