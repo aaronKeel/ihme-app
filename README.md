@@ -1,4 +1,4 @@
-# Creating a New Web Application
+# Creating a New Nodejs Application and Docker Container
 In terminal, create a new directory and go to it.
 ```
 mkdir ihme-app && cd ihme-app
@@ -13,7 +13,7 @@ npm init
 We'll run a node.js server using express, so add the following to `package.json` file.
 ```
 "scripts": {
-	"start": "node server.js"
+"start": "node server.js"
 },
 ```
 and then
@@ -102,3 +102,5 @@ Add these scripts to `package.json` file:
 You can run `npm run docker:build:dev` to build the image. Then to run the image run the script `npm run docker:run`.
 
 Now we can call the app using `curl -i localhost:49160`.
+
+Resource: [nodejs.org](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/)
