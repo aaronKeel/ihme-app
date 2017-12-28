@@ -1,8 +1,9 @@
 import * as express from 'express';
 import * as path from 'path';
+import {Application} from "express-serve-static-core";
 
 class App {
-  public express;
+  public express: Application;
 
   constructor () {
     this.express = express();
@@ -13,7 +14,7 @@ class App {
     const router = express.Router();
 
     router.get('/', (req, res) => {
-      res.sendFile(path.join(__dirname, '/../public/index.html'));
+      res.sendFile(path.join(__dirname, '/app/index.html'));
     });
 
     router.get('/api', (req, res) => {
@@ -22,9 +23,8 @@ class App {
       });
     });
 
-    this.express.use('/', router);
+    this.express.use('/', express.static(path.join(__dirname, '/app')));
     this.express.use('/api', router);
-    this.express.use('/public', express.static(path.join(__dirname, '/../public')));
   }
 }
 

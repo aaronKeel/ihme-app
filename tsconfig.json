@@ -1,15 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "jsx": "react",
     "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
     "outDir": "./dist/",
-    "sourceMap": true
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es6"
   },
   "files": [
     "./node_modules/@types/node/index.d.ts"
   ],
   "include": [
-    "server/**/*.ts"
+    "server/**/*.ts",
   ],
   "exclude": [
     "node_modules"
