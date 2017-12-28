@@ -8,17 +8,10 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "outDir": "./dist/",
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6"
   },
-  "files": [
-    "./node_modules/@types/node/index.d.ts"
-  ],
-  "include": [
-    "server/**/*.ts",
-  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,20 +1,20 @@
 import * as express from 'express';
+import { Application } from 'express-serve-static-core';
 import * as path from 'path';
-import {Application} from "express-serve-static-core";
 
 class App {
-  public express: Application;
+  express: Application;
 
-  constructor () {
+  constructor() {
     this.express = express();
     this.mountRoutes();
   }
 
-  private mountRoutes (): void {
+  private mountRoutes(): void {
     const router = express.Router();
 
     router.get('/', (req, res) => {
-      res.sendFile(path.join(__dirname, '/app/index.html'));
+      res.sendFile(path.join(__dirname, '../app/index.html'));
     });
 
     router.get('/api', (req, res) => {
@@ -23,7 +23,7 @@ class App {
       });
     });
 
-    this.express.use('/', express.static(path.join(__dirname, '/app')));
+    this.express.use('/', express.static(path.join(__dirname, '../app')));
     this.express.use('/api', router);
   }
 }

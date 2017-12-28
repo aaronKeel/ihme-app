@@ -1,0 +1,25 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-react"
+  ],
+  "jsRules": {},
+  "rules": {
+    "member-access": [true, "no-public"],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "arrays": "always",
+          "functions": "never",
+          "objects": "always"
+        }
+      }
+    ],
+    "quotemark": [true, "single", "jsx-double"],
+    "no-console": false,
+    "no-unused-variable": [true, {"ignore-pattern": "^_"}]
+  },
+  "rulesDirectory": []
+}

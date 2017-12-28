@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/public/app"
+  },
+  "files": [
+    "app.tsx"
+  ],
+  "include": [
+    "./test/**/*.tsx",
+    "./test/**/*.ts",
+  ]
+}

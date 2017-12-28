@@ -19,11 +19,6 @@ export default class App extends React.Component<IProps, IState> {
     };
   }
 
-  componentDidCatch(err: any, info: any) {
-    console.log(`err: ${err}`);
-    console.log(`info: ${info}`);
-  }
-
   render() {
     return (
       <div className={styles.container}>
