@@ -206,7 +206,7 @@ This is an optimization for loading and building times by taking advantage of ca
 Let's install what we need:
 
 ```text
-npm install --save autoprefixer clean-webpack-plugin css-loader html-webpack-plugin postcss-cssnext postcss-loader source-map-loader style-loader typings-for-css-modules-loader webpack webpack-manifest-plugin webpack-notifier
+npm install --save autoprefixer clean-webpack-plugin css-loader html-webpack-plugin postcss-cssnext postcss-loader source-map-loader style-loader typings-for-css-modules-loader webpack webpack-manifest-plugin webpack-notifier ts-loader
 ```
 
 Well that's a lot of packages to install. Welcome to JavaScript.
